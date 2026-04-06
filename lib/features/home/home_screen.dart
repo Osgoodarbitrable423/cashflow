@@ -2,12 +2,13 @@ import 'package:cashflow/core/constants/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 import '../../shared/widgets/bottom_nav_bar.dart';
 import '../analytics/analytics_screen.dart';
 import '../add_expense/add_expense_screen.dart';
 import '../reports/reports_screen.dart';
 import '../profile/profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -76,6 +77,14 @@ class _HomeContentState extends State<HomeContent> {
     });
   }
 
+  // ✅ Fix: Time-based greeting
+  String get _greeting {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return "Good Morning! ☀️";
+    if (hour < 17) return "Good Afternoon! 🌤️";
+    return "Good Evening! 🌙";
+  }
+
   double get _totalIncome {
     return _box.values
         .where((t) => t['type'] == 'Income')
@@ -119,7 +128,7 @@ class _HomeContentState extends State<HomeContent> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Good Morning! 👋",
+              _greeting, // ✅ Fixed: time-based greeting
               style: GoogleFonts.poppins(
                 color: AppColors.textSecondary,
                 fontSize: 14,
@@ -169,7 +178,7 @@ class _HomeContentState extends State<HomeContent> {
           Text(
             "Total Balance",
             style: GoogleFonts.poppins(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8), // ✅ Fixed deprecated
               fontSize: 14,
             ),
           ),
@@ -188,9 +197,9 @@ class _HomeContentState extends State<HomeContent> {
               const Icon(Icons.trending_up, color: Colors.white, size: 16),
               const SizedBox(width: 4),
               Text(
-                "This Month",
+                DateFormat('MMMM yyyy').format(DateTime.now()),
                 style: GoogleFonts.poppins(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8), // ✅ Fixed deprecated
                   fontSize: 12,
                 ),
               ),
@@ -216,7 +225,7 @@ class _HomeContentState extends State<HomeContent> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.income.withOpacity(0.15),
+                    color: AppColors.income.withValues(alpha: 0.15), // ✅ Fixed
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -263,7 +272,7 @@ class _HomeContentState extends State<HomeContent> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.expense.withOpacity(0.15),
+                    color: AppColors.expense.withValues(alpha: 0.15), // ✅ Fixed
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -347,8 +356,8 @@ class _HomeContentState extends State<HomeContent> {
                           height: 45,
                           decoration: BoxDecoration(
                             color: isExpense
-                                ? AppColors.expense.withOpacity(0.15)
-                                : AppColors.income.withOpacity(0.15),
+                                ? AppColors.expense.withValues(alpha: 0.15) // ✅ Fixed
+                                : AppColors.income.withValues(alpha: 0.15),  // ✅ Fixed
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Center(

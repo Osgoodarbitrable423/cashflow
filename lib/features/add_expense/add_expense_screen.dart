@@ -1,5 +1,6 @@
 import 'package:cashflow/core/constants/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
@@ -16,6 +17,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   String _selectedCategory = 'Food';
   String _selectedType = 'Expense';
   DateTime _selectedDate = DateTime.now();
+  bool _isSaving = false; // ✅ Loading state
 
   final List<Map<String, dynamic>> _categories = [
     {'name': 'Food', 'icon': '🍔'},
@@ -28,6 +30,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     {'name': 'Other', 'icon': '💰'},
   ];
 
+  @override
+  void dispose() {
+    // ✅ Fix: Dispose controllers to prevent memory leak
+    _amountController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
   Future<void> _saveTransaction() async {
     if (_amountController.text.isEmpty) {
       ScaffoldMessenger.of(
@@ -36,17 +46,38 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       return;
     }
 
-    final box = Hive.box('transactions');
-    await box.add({
-      'amount': double.parse(_amountController.text),
-      'note': _noteController.text,
-      'category': _selectedCategory,
-      'type': _selectedType,
-      'date': _selectedDate.toIso8601String(),
-    });
+    // ✅ Fix: Use tryParse to avoid crash on invalid input
+    final amount = double.tryParse(_amountController.text);
+    if (amount == null || amount <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter a valid amount!")),
+      );
+      return;
+    }
 
-    if (!mounted) return;
-    Navigator.pop(context);
+    setState(() => _isSaving = true);
+
+    try {
+      final box = Hive.box('transactions');
+      await box.add({
+        'amount': amount,
+        'note': _noteController.text.trim(),
+        'category': _selectedCategory,
+        'type': _selectedType,
+        'date': _selectedDate.toIso8601String(),
+      });
+
+      if (!mounted) return;
+      Navigator.pop(context);
+    } catch (e) {
+      // ✅ Fix: Error handling for Hive operations
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error saving transaction: $e")),
+      );
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 
   @override
@@ -125,7 +156,11 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             const SizedBox(height: 8),
             TextField(
               controller: _amountController,
-              keyboardType: TextInputType.number,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              // ✅ Fix: Only allow numbers and one decimal point
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+              ],
               style: GoogleFonts.poppins(
                 color: AppColors.textPrimary,
                 fontSize: 24,
@@ -204,7 +239,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     duration: const Duration(milliseconds: 200),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? AppColors.primary.withOpacity(0.2)
+                          ? AppColors.primary.withValues(alpha: 0.2) // ✅ Fixed
                           : AppColors.card,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
@@ -291,26 +326,36 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             ),
             const SizedBox(height: 32),
 
-            // Save Button
+            // Save Button with loading state
             SizedBox(
               width: double.infinity,
               height: 56,
               child: ElevatedButton(
-                onPressed: _saveTransaction,
+                onPressed: _isSaving ? null : _saveTransaction, // ✅ Disable when saving
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
+                  disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
-                child: Text(
-                  "Save Transaction",
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: _isSaving
+                    ? const SizedBox(
+                        height: 22,
+                        width: 22,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2.5,
+                        ),
+                      )
+                    : Text(
+                        "Save Transaction",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
               ),
             ),
             const SizedBox(height: 20),

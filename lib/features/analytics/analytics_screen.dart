@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../core/constants/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});
@@ -16,12 +16,22 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   late Box _box;
   int _touchedIndex = -1;
   String _selectedPeriod = 'This Month';
+  String _currency = '₹'; // ✅ Fix: dynamic currency
   final List<String> _periods = ['This Week', 'This Month', 'This Year'];
 
   @override
   void initState() {
     super.initState();
     _box = Hive.box('transactions');
+    _loadCurrency();
+  }
+
+  // ✅ Fix: Load currency from SharedPreferences
+  Future<void> _loadCurrency() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _currency = prefs.getString('currency')?.split(' ')[0] ?? '₹';
+    });
   }
 
   List get _filteredTransactions {
@@ -158,7 +168,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 Expanded(
                   child: _buildStatCard(
                     "Income",
-                    "₹${_totalIncome.toStringAsFixed(0)}",
+                    "$_currency${_totalIncome.toStringAsFixed(0)}", // ✅ Dynamic currency
                     AppColors.income,
                     Icons.arrow_downward_rounded,
                   ),
@@ -167,7 +177,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 Expanded(
                   child: _buildStatCard(
                     "Expense",
-                    "₹${_totalExpense.toStringAsFixed(0)}",
+                    "$_currency${_totalExpense.toStringAsFixed(0)}", // ✅ Dynamic currency
                     AppColors.expense,
                     Icons.arrow_upward_rounded,
                   ),
@@ -265,7 +275,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                 ),
                               ),
                               Text(
-                                "₹${totalExpense.toStringAsFixed(0)}",
+                                "$_currency${totalExpense.toStringAsFixed(0)}", // ✅ Dynamic currency
                                 style: GoogleFonts.poppins(
                                   color: AppColors.textPrimary,
                                   fontSize: 20,
@@ -323,7 +333,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                             ),
                             const SizedBox(width: 12),
                             Text(
-                              "₹${cat.value.toStringAsFixed(0)}",
+                              "$_currency${cat.value.toStringAsFixed(0)}", // ✅ Dynamic currency
                               style: GoogleFonts.poppins(
                                 color: AppColors.textPrimary,
                                 fontWeight: FontWeight.w600,
@@ -373,7 +383,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                 colors: [
                                   _chartColors[entry.key % _chartColors.length],
                                   _chartColors[entry.key % _chartColors.length]
-                                      .withOpacity(0.5),
+                                      .withValues(alpha: 0.5),
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
@@ -388,7 +398,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                         show: true,
                         drawVerticalLine: false,
                         getDrawingHorizontalLine: (value) => FlLine(
-                          color: Colors.white.withOpacity(0.05),
+                          color: Colors.white.withValues(alpha: 0.05),
                           strokeWidth: 1,
                         ),
                       ),
@@ -471,7 +481,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                             ),
                           ),
                           Text(
-                            "₹${cat.value.toStringAsFixed(0)}",
+                            "$_currency${cat.value.toStringAsFixed(0)}", // ✅ Dynamic currency
                             style: GoogleFonts.poppins(
                               color: AppColors.expense,
                               fontWeight: FontWeight.w600,
@@ -484,7 +494,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                         borderRadius: BorderRadius.circular(4),
                         child: LinearProgressIndicator(
                           value: percent.toDouble(),
-                          backgroundColor: Colors.white.withOpacity(0.1),
+                          backgroundColor: Colors.white.withValues(alpha: 0.1),
                           valueColor: AlwaysStoppedAnimation<Color>(
                             _chartColors[index % _chartColors.length],
                           ),

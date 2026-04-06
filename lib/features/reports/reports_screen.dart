@@ -183,7 +183,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   Text(
                     "Net Balance",
                     style: GoogleFonts.poppins(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 14,
                     ),
                   ),
@@ -246,8 +246,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
                               height: 45,
                               decoration: BoxDecoration(
                                 color: isExpense
-                                    ? AppColors.expense.withOpacity(0.15)
-                                    : AppColors.income.withOpacity(0.15),
+                                  ? AppColors.expense.withValues(alpha: 0.15)
+                                  : AppColors.income.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Center(
@@ -317,7 +317,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.15),
+            color: color.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: color, size: 20),

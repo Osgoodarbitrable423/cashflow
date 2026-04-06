@@ -57,6 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () async {
               await Hive.box('transactions').clear();
               if (!mounted) return;
+              // ignore: use_build_context_synchronously
               Navigator.pop(context);
               setState(() {});
             },
@@ -95,8 +96,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
               await prefs.clear();
-              if (!mounted) return;
-              Navigator.pushAndRemoveUntil(
+              if (!context.mounted) return;
+              await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const OnboardingScreen(),
@@ -145,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.2),
+                      color: AppColors.primary.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Icon(
@@ -277,7 +278,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.15),
+                color: color.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: color, size: 20),
@@ -369,6 +370,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 double.tryParse(incomeController.text) ?? 0,
               );
               if (!mounted) return;
+              // ignore: use_build_context_synchronously
               Navigator.pop(context);
               _loadData();
             },
