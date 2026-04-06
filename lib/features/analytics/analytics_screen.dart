@@ -274,12 +274,15 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                   fontSize: 12,
                                 ),
                               ),
-                              Text(
-                                "$_currency${totalExpense.toStringAsFixed(0)}", // ✅ Dynamic currency
-                                style: GoogleFonts.poppins(
-                                  color: AppColors.textPrimary,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  "$_currency${totalExpense.toStringAsFixed(0)}", // ✅ Dynamic currency
+                                  style: GoogleFonts.poppins(
+                                    color: AppColors.textPrimary,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],
@@ -554,12 +557,16 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
         children: [
           Icon(icon, color: color, size: 20),
           const SizedBox(height: 8),
-          Text(
-            value,
-            style: GoogleFonts.poppins(
-              color: color,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              value,
+              style: GoogleFonts.poppins(
+                color: color,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Text(

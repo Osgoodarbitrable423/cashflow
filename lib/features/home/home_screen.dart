@@ -183,12 +183,16 @@ class _HomeContentState extends State<HomeContent> {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            "$_currency ${_balance.toStringAsFixed(2)}",
-            style: GoogleFonts.poppins(
-              color: Colors.white,
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "$_currency ${_balance.toStringAsFixed(2)}",
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(height: 16),
@@ -199,7 +203,9 @@ class _HomeContentState extends State<HomeContent> {
               Text(
                 DateFormat('MMMM yyyy').format(DateTime.now()),
                 style: GoogleFonts.poppins(
-                  color: Colors.white.withValues(alpha: 0.8), // ✅ Fixed deprecated
+                  color: Colors.white.withValues(
+                    alpha: 0.8,
+                  ), // ✅ Fixed deprecated
                   fontSize: 12,
                 ),
               ),
@@ -235,25 +241,31 @@ class _HomeContentState extends State<HomeContent> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Income",
-                      style: GoogleFonts.poppins(
-                        color: AppColors.textSecondary,
-                        fontSize: 12,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Income",
+                        style: GoogleFonts.poppins(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "$_currency ${_totalIncome.toStringAsFixed(0)}",
-                      style: GoogleFonts.poppins(
-                        color: AppColors.textPrimary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "$_currency ${_totalIncome.toStringAsFixed(0)}",
+                          style: GoogleFonts.poppins(
+                            color: AppColors.textPrimary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -282,25 +294,31 @@ class _HomeContentState extends State<HomeContent> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Expense",
-                      style: GoogleFonts.poppins(
-                        color: AppColors.textSecondary,
-                        fontSize: 12,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Expense",
+                        style: GoogleFonts.poppins(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "$_currency ${_totalExpense.toStringAsFixed(0)}",
-                      style: GoogleFonts.poppins(
-                        color: AppColors.textPrimary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "$_currency ${_totalExpense.toStringAsFixed(0)}",
+                          style: GoogleFonts.poppins(
+                            color: AppColors.textPrimary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -356,8 +374,12 @@ class _HomeContentState extends State<HomeContent> {
                           height: 45,
                           decoration: BoxDecoration(
                             color: isExpense
-                                ? AppColors.expense.withValues(alpha: 0.15) // ✅ Fixed
-                                : AppColors.income.withValues(alpha: 0.15),  // ✅ Fixed
+                                ? AppColors.expense.withValues(
+                                    alpha: 0.15,
+                                  ) // ✅ Fixed
+                                : AppColors.income.withValues(
+                                    alpha: 0.15,
+                                  ), // ✅ Fixed
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Center(
@@ -369,6 +391,7 @@ class _HomeContentState extends State<HomeContent> {
                         ),
                         const SizedBox(width: 12),
                         Expanded(
+                          flex: 2,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -389,14 +412,22 @@ class _HomeContentState extends State<HomeContent> {
                             ],
                           ),
                         ),
-                        Text(
-                          "${isExpense ? '-' : '+'} $_currency ${t['amount'].toStringAsFixed(0)}",
-                          style: GoogleFonts.poppins(
-                            color: isExpense
-                                ? AppColors.expense
-                                : AppColors.income,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
+                        const SizedBox(width: 8),
+                        Expanded(
+                          flex: 1,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "${isExpense ? '-' : '+'} $_currency ${t['amount'].toStringAsFixed(0)}",
+                              style: GoogleFonts.poppins(
+                                color: isExpense
+                                    ? AppColors.expense
+                                    : AppColors.income,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                            ),
                           ),
                         ),
                       ],

@@ -2,6 +2,7 @@ import 'package:cashflow/core/constants/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -13,11 +14,20 @@ class ReportsScreen extends StatefulWidget {
 class _ReportsScreenState extends State<ReportsScreen> {
   late Box _box;
   DateTime _selectedMonth = DateTime.now();
+  String _currency = '₹';
 
   @override
   void initState() {
     super.initState();
     _box = Hive.box('transactions');
+    _loadCurrency();
+  }
+
+  Future<void> _loadCurrency() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _currency = prefs.getString('currency')?.split(' ')[0] ?? '₹';
+    });
   }
 
   List get _filteredTransactions {
@@ -147,7 +157,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 Expanded(
                   child: _buildSummaryCard(
                     "Income",
-                    "₹ ${_monthlyIncome.toStringAsFixed(0)}",
+                    "$_currency ${_monthlyIncome.toStringAsFixed(0)}",
                     AppColors.income,
                     Icons.arrow_downward_rounded,
                   ),
@@ -156,7 +166,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 Expanded(
                   child: _buildSummaryCard(
                     "Expense",
-                    "₹ ${_monthlyExpense.toStringAsFixed(0)}",
+                    "$_currency ${_monthlyExpense.toStringAsFixed(0)}",
                     AppColors.expense,
                     Icons.arrow_upward_rounded,
                   ),
@@ -187,12 +197,19 @@ class _ReportsScreenState extends State<ReportsScreen> {
                       fontSize: 14,
                     ),
                   ),
-                  Text(
-                    "₹ ${(_monthlyIncome - _monthlyExpense).toStringAsFixed(0)}",
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "$_currency ${(_monthlyIncome - _monthlyExpense).toStringAsFixed(0)}",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -259,6 +276,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                             ),
                             const SizedBox(width: 12),
                             Expanded(
+                              flex: 2,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -279,14 +297,22 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                 ],
                               ),
                             ),
-                            Text(
-                              "${isExpense ? '-' : '+'} ₹ ${t['amount'].toStringAsFixed(0)}",
-                              style: GoogleFonts.poppins(
-                                color: isExpense
-                                    ? AppColors.expense
-                                    : AppColors.income,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
+                            const SizedBox(width: 8),
+                            Expanded(
+                              flex: 1,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  "${isExpense ? '-' : '+'} $_currency ${t['amount'].toStringAsFixed(0)}",
+                                  style: GoogleFonts.poppins(
+                                    color: isExpense
+                                        ? AppColors.expense
+                                        : AppColors.income,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -323,25 +349,31 @@ class _ReportsScreenState extends State<ReportsScreen> {
             child: Icon(icon, color: color, size: 20),
           ),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: GoogleFonts.poppins(
-                  color: AppColors.textSecondary,
-                  fontSize: 12,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    color: AppColors.textSecondary,
+                    fontSize: 12,
+                  ),
                 ),
-              ),
-              Text(
-                amount,
-                style: GoogleFonts.poppins(
-                  color: AppColors.textPrimary,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    amount,
+                    style: GoogleFonts.poppins(
+                      color: AppColors.textPrimary,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
