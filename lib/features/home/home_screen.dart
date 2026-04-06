@@ -53,9 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () => _openAddExpenseModal(context),
         backgroundColor: AppColors.primary,
         elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: const Icon(Icons.add_rounded, color: Colors.white, size: 32),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -352,7 +350,13 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget _buildRecentTransactions() {
-    final transactions = _box.toMap().entries.toList().reversed.take(5).toList();
+    final transactions = _box
+        .toMap()
+        .entries
+        .toList()
+        .reversed
+        .take(5)
+        .toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,17 +381,20 @@ class _HomeContentState extends State<HomeContent> {
                         color: AppColors.primary.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.account_balance_wallet_rounded, size: 64, color: AppColors.primary),
+                      child: const Icon(
+                        Icons.account_balance_wallet_rounded,
+                        size: 64,
+                        color: AppColors.primary,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Text(
                       "Your journey begins here!",
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                  ),
+                      style: GoogleFonts.poppins(fontSize: 14),
+                    ),
+                  ],
                 ),
-              ],
-            ))
+              )
             : ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -404,11 +411,17 @@ class _HomeContentState extends State<HomeContent> {
                       margin: const EdgeInsets.only(bottom: 12),
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: [Colors.redAccent, Colors.red]),
+                        gradient: const LinearGradient(
+                          colors: [Colors.redAccent, Colors.red],
+                        ),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       alignment: Alignment.centerRight,
-                      child: const Icon(Icons.delete_sweep_rounded, color: Colors.white, size: 30),
+                      child: const Icon(
+                        Icons.delete_sweep_rounded,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
                     onDismissed: (direction) {
                       HapticFeedback.mediumImpact();
@@ -417,76 +430,77 @@ class _HomeContentState extends State<HomeContent> {
                     child: Container(
                       margin: const EdgeInsets.only(bottom: 12),
                       padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: AppColors.card,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: isExpense
-                                ? AppColors.expense.withValues(
-                                    alpha: 0.15,
-                                  ) // ✅ Fixed
-                                : AppColors.income.withValues(
-                                    alpha: 0.15,
-                                  ), // ✅ Fixed
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Text(
-                              _getCategoryEmoji(t['category']),
-                              style: const TextStyle(fontSize: 20),
+                      decoration: BoxDecoration(
+                        color: AppColors.card,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              color: isExpense
+                                  ? AppColors.expense.withValues(
+                                      alpha: 0.15,
+                                    ) // ✅ Fixed
+                                  : AppColors.income.withValues(
+                                      alpha: 0.15,
+                                    ), // ✅ Fixed
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                t['category'],
-                                style: GoogleFonts.poppins(
-                                  color: AppColors.textPrimary,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                t['note'].isEmpty ? t['type'] : t['note'],
-                                style: GoogleFonts.poppins(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          flex: 1,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              "${isExpense ? '-' : '+'} $_currency ${t['amount'].toStringAsFixed(0)}",
-                              style: GoogleFonts.poppins(
-                                color: isExpense
-                                    ? AppColors.expense
-                                    : AppColors.income,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
+                            child: Center(
+                              child: Text(
+                                _getCategoryEmoji(t['category']),
+                                style: const TextStyle(fontSize: 20),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 12),
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  t['category'],
+                                  style: GoogleFonts.poppins(
+                                    color: AppColors.textPrimary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  t['note'].isEmpty ? t['type'] : t['note'],
+                                  style: GoogleFonts.poppins(
+                                    color: AppColors.textSecondary,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            flex: 1,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                "${isExpense ? '-' : '+'} $_currency ${t['amount'].toStringAsFixed(0)}",
+                                style: GoogleFonts.poppins(
+                                  color: isExpense
+                                      ? AppColors.expense
+                                      : AppColors.income,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ));
+                  );
                 },
               ),
       ],
